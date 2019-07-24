@@ -32,10 +32,11 @@
                             switch (Number(data)) {
                             case 0:
                                 alert("정상적으로 회원가입 되었습니다.");
-                                //window.location.href = "/login";
+                                window.location.href = "/login";
                                 break;
                             case 1:
                                 alert("아이디가 중복 되었습니다.");
+                                window.location.href = "/register";
                                 break;
                             default:
                                 alert("알수없는 오류가 발생 했습니다. [Error Code :" + Number(data) + "]");
@@ -61,7 +62,7 @@
             <form  method="post">
                 <input type="text" id="username" name="username" placeholder="id"/> <br/>
                 <input type="password" id="password" name="password" placeholder="pw"/> <br/>
-                <input type="submit" id="register_process" value="가입하기" />
+                <input type="button" id="register_process" value="가입하기" />
             </form>
             <div id="checkResult" />
             <a href="/">취소</a>
