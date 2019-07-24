@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- URL : http://localhost:8080/join  -->
+    <head>
+        <meta charset="UTF-8">
+        <title>Book Search</title>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+        <script>
+        	function moveDetail( clickBtn){
+        		$(clickBtn).attr("index");
+        	}
+        </script>
+
+    </head>
+    <body>
+        <div class="title">
+            <h1>Search Book Result</h1>
+        </div>
+        <div class="content">
+         <table >
+            <thead>
+               <tr>
+                  <th style="width:5%">제목</th>
+                  <th style="width:30%">소개</th>
+                  <th style="width:10%">저자 목록</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr th:each=" book ,index : ${bookRes.documents}" th:index="{index}" onclick="javascript:moveDetail(this);">
+                  <td th:text="${book.title}"></td>   
+                  <td th:text="${book.contents}"></td>   
+                  <td>
+                     <p th:each=" author : ${book.authors}" th:text="${author}"></p>
+                  </td>   
+               </tr>
+            </tbody>
+         </table>
+        </div>
+    </body>
+</html>

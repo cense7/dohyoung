@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- URL : http://localhost:8080/  -->
+    <head>
+        <meta charset="UTF-8">
+        <title>Search</title>
+    </head>
+    <body>
+        <div class="content">
+            <form th:action="@{request/search}" method="post">
+                <input type="text" id="query" name="query" placeholder="search"/> <br/>
+                <input type="submit" value="검색"/>
+            </form>
+        </div>
+    </body>
+</html>

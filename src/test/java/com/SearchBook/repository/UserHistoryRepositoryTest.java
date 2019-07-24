@@ -50,7 +50,7 @@ public class UserHistoryRepositoryTest
 
         UserHistory bankHistory = new UserHistory();
         bankHistory.setUsername("bank");
-        // Page<UserHistory> historyList = this.userHistoryRepository.findAll(Example.of(userHistory), pageable);
+
         PageRequest page1 = PageRequest.of(1, 10, Sort.by(Order.asc("searchtime")));
         Page<UserHistory> bankHistoryPage = this.userHistoryRepository.findAll(Example.of(bankHistory), page1);
         assertEquals(bankHistoryPage.getSize(), 10);

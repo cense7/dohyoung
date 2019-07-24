@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.searchBook.service.Impl.UserServiceImpl;
 
@@ -23,11 +24,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
 
 
-    // @Bean
-    // public AuthenticationSuccessHandler successHandler()
-    // {
-    // return new LoginSuccessHandler("/main");
-    // }
+    @Bean
+    public AuthenticationSuccessHandler successHandler()
+    {
+        return new LoginSuccessHandler("/main");
+    }
+
+
+
+
 
     @Bean
     public PasswordEncoder passwordEncoder()
@@ -60,8 +65,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
             .formLogin()
             .loginPage("/login")
             .loginProcessingUrl("/auth")
-            .defaultSuccessUrl("/")
-            // .failureHandler(this.authSuccessHandler)
+            .successHandler(successHandler())
+            .defaultSuccessUrl("/main")
+            // .failureHandler(this.authenticationFailureHandler)
 
             .and()
             .logout()

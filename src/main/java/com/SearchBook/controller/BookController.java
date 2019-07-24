@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -39,19 +41,19 @@ public class BookController
 
 
 
-    @GetMapping("request/search")
-    public @ResponseBody ResponseVo SearchRequest(final Principal principal, @RequestParam final String query, @RequestParam final Optional<String> sort, @RequestParam final Optional<Integer> page,
-            @RequestParam final Optional<Integer> size, @RequestParam final Optional<String> target)
+    @PostMapping("request/search")
+    public String SearchRequest(final Principal principal, @RequestParam final String query, @RequestParam final Optional<String> sort, @RequestParam final Optional<Integer> page,
+            @RequestParam final Optional<Integer> size, @RequestParam final Optional<String> target, final Model model)
 
     {
-
         String currentID = principal.getName();
-        String url = Util.makeURL(this.API_URL, query, sort.orElse(null), Integer.toString(page.orElse(null)), Integer.toString(size.orElse(null)), target.orElse(null));
+        String url = Util.makeURL(this.API_URL, query, sort.orElse(null), Integer.toString(page.orElse(1)), Integer.toString(size.orElse(10)), target.orElse(null));
 
         this.userHistoryService.saveUserHistory(currentID, query);
         ResponseVo responseVo = this.requestBookService.requestData(url);
+        model.addAttribute("bookRes", responseVo);
 
-        return responseVo;
+        return "search-book";
     }
 
 

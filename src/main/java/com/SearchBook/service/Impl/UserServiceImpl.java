@@ -40,9 +40,9 @@ public class UserServiceImpl implements UserService, UserDetailsService
         // TODO Auto-generated method stub
         Optional<User> user = this.userRepository.findById(userName);
 
-        if ( !user.isPresent() )
+        if ( user.isPresent() )
         {
-            // 없을 경우
+
         }
         User currentUser = user.get();
         currentUser.setPassword(currentUser.getPassword());

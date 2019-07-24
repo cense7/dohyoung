@@ -17,22 +17,22 @@
          <table >
             <thead>
                <tr>
-                  <th>제목</th>
-                  <th>소개</th>
-                  <th>상세URL</th>
-                  <th>도서번호</th>
-                  <th>출판날짜</th>
-                  <th>저자 목록</th>
-                  <th>출판사</th>
-                  <th>번역자 목록</th>
-                  <th>정가</th>
-                  <th>판매가</th>
-                  <th>표지썸네일</th>
-                  <th>상태</th>
+                  <th style="width:5%">제목</th>
+                  <th style="width:30%">소개</th>
+                  <th style="width:5%">상세URL</th>
+                  <th style="width:5%">도서번호</th>
+                  <th style="width:10%">출판날짜</th>
+                  <th style="width:10%">저자 목록</th>
+                  <th style="width:5%">출판사</th>
+                  <th style="width:10%">번역자 목록</th>
+                  <th style="width:5%">정가</th>
+                  <th style="width:5%">판매가</th>
+                  <th style="width:5%">표지썸네일</th>
+                  <th style="width:5%">상태</th>
                </tr>
             </thead>
             <tbody>
-               <tr th:each=" book : ${bookRes.documents}">
+               <tr >
                   <td th:text="${book.title}"></td>   
                   <td th:text="${book.contents}"></td>   
                   <td th:text="${book.url}"></td>   
