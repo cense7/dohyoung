@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.searchBook.domain.UserHistory;
 import com.searchBook.service.RequestBookService;
@@ -38,19 +39,8 @@ public class BookController
 
 
 
-    @GetMapping("/main")
-    public String root()
-    {
-
-        return "main";
-    }
-
-
-
-
-
     @GetMapping("request/search")
-    public ResponseVo SearchRequest(final Principal principal, @RequestParam final String query, @RequestParam final Optional<String> sort, @RequestParam final Optional<Integer> page,
+    public @ResponseBody ResponseVo SearchRequest(final Principal principal, @RequestParam final String query, @RequestParam final Optional<String> sort, @RequestParam final Optional<Integer> page,
             @RequestParam final Optional<Integer> size, @RequestParam final Optional<String> target)
 
     {
@@ -69,7 +59,7 @@ public class BookController
 
 
     @GetMapping("request/history")
-    public Page<UserHistory> historyRequest(final Principal principal, @RequestParam final Pageable pageable)
+    public @ResponseBody Page<UserHistory> historyRequest(final Principal principal, @RequestParam final Pageable pageable)
 
     {
         String currentID = principal.getName();

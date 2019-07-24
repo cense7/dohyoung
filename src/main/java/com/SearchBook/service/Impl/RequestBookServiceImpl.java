@@ -30,12 +30,7 @@ public class RequestBookServiceImpl implements RequestBookService
     @Override
     public ResponseVo requestData(final String url)
     {
-        System.out.println("[Request] " + url);
         ResponseEntity<ResponseVo> response = this.restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(this.headers), ResponseVo.class);
-
-        System.out.println(response.getBody()
-                                   .toString());
-
         return (response.getStatusCode() == HttpStatus.OK) ? response.getBody() : null;
     }
 
