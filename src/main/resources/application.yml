@@ -18,7 +18,6 @@ spring:
         show_sql: true
         use_sql_comments: true
         format_sql: true
-
 # H2 Settings
   h2:
     console:
@@ -27,4 +26,6 @@ spring:
       settings:
         trace: false
         web-allow-others: true
+  thymeleaf:
+    cache: false
 

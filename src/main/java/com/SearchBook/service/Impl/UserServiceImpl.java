@@ -11,9 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.searchBook.domain.User;
 import com.searchBook.repository.UserRepository;
+import com.searchBook.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserDetailsService
+public class UserServiceImpl implements UserService, UserDetailsService
 {
     @Autowired
     private UserRepository  userRepository;
@@ -46,6 +47,30 @@ public class UserServiceImpl implements UserDetailsService
         User currentUser = user.get();
         currentUser.setPassword(currentUser.getPassword());
         return currentUser;
+    }
+
+
+
+
+
+    @Override
+    public void regist(final String username, final String password)
+    {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+
+        this.userRepository.save(user);
+
+    }
+
+
+
+
+
+    public boolean existsId(final String username)
+    {
+        return this.userRepository.existsById(username);
     }
 
 }

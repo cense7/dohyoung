@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.searchBook.service.Impl.UserServiceImpl;
 
@@ -24,15 +23,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
 
 
-    @Bean
-    public AuthenticationSuccessHandler successHandler()
-    {
-        return new LoginSuccessHandler("/main");
-    }
-
-
-
-
+    // @Bean
+    // public AuthenticationSuccessHandler successHandler()
+    // {
+    // return new LoginSuccessHandler("/main");
+    // }
 
     @Bean
     public PasswordEncoder passwordEncoder()
@@ -57,17 +52,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     {
         http.authorizeRequests()
 
-            .antMatchers("/", "/home", "/console/*")
+            .antMatchers("/login", "/console/*", "/register")
             .permitAll()
-
             .anyRequest()
             .authenticated()
             .and()
             .formLogin()
-            .permitAll()
+            .loginPage("/login")
+            .loginProcessingUrl("/auth")
             .defaultSuccessUrl("/")
             // .failureHandler(this.authSuccessHandler)
-            .successHandler(successHandler())
 
             .and()
             .logout()
@@ -84,6 +78,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         http.headers()
             .frameOptions()
             .disable();
+
+        http.sessionManagement()
+            .maximumSessions(1)
+            .maxSessionsPreventsLogin(true);
 
     }
 
