@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- URL : http://localhost:8080/join  -->
+    <head>
+        <meta charset="UTF-8">
+        <title>Book Search</title>
+    </head>
+    <body>
+        <div class="title">
+            <h1>Login Page</h1>
+        </div>
+        <div class="content">
+            <form th:action="@{/auth}" method="post">
+                <input type="text" id="username" name="username" placeholder="id"/> <br/>
+                <input type="password" id="password" name="password" placeholder="pw"/> <br/>
+                <input type="submit" value="로그인"/>
+                <a href="register" >회원가입 </a><br/>
+            </form>
+            <a href="/">취소</a>
+        </div>
+    </body>
+</html>

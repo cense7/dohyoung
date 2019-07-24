@@ -31,9 +31,8 @@ public class UserController
 
 
     @GetMapping("/register")
-    public String register(@RequestParam final String username, @RequestParam final String password)
+    public String register()
     {
-        this.userService.regist(username, password);
         return "register";
     }
 
@@ -41,7 +40,27 @@ public class UserController
 
 
 
-    @PostMapping("/checkId")
+    @PostMapping("register")
+    public @ResponseBody String registerUser(@RequestParam final String username, @RequestParam final String password)
+    {
+        boolean idcheck = this.userService.existsId(username);
+        String code = "1";
+
+        if ( idcheck == false )
+        {
+            this.userService.regist(username, password);
+            code = "0";
+        }
+
+        return code;
+
+    }
+
+
+
+
+
+    @PostMapping("user/checkId")
     public @ResponseBody String checkId(@RequestParam final String username)
     {
         String str = "";
@@ -54,6 +73,6 @@ public class UserController
         { // 사용 가능한 계정
             str = "YES";
         }
-        return "login";
+        return "register";
     }
 }

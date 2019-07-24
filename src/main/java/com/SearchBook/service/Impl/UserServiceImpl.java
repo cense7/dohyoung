@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService, UserDetailsService
     {
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
+        user.setPassword(this.passwordEncoder.encode(password));
 
         this.userRepository.save(user);
 
@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService, UserDetailsService
 
 
 
+    @Override
     public boolean existsId(final String username)
     {
         return this.userRepository.existsById(username);
