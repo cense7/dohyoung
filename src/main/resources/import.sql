@@ -1,0 +1,1 @@
+INSERT INTO User (username, password) VALUES ('1234', '{bcrypt}$2a$10$bLqHGSa94yeHp9TgG7HHQeyLq/GAqQQCBzmC2KfGp/624GQ7J5TLK');
