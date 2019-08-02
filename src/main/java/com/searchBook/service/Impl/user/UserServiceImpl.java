@@ -1,4 +1,4 @@
-package com.searchBook.service.Impl;
+package com.searchBook.service.Impl.user;
 
 import java.util.Optional;
 
@@ -35,15 +35,17 @@ public class UserServiceImpl implements UserService, UserDetailsService
 
 
     @Override
-    public UserDetails loadUserByUsername(final String userName) throws UsernameNotFoundException
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException
     {
         // TODO Auto-generated method stub
-        Optional<User> user = this.userRepository.findById(userName);
 
-        if ( user.isPresent() )
+        Optional<User> user = this.userRepository.findByUsername(username);
+
+        if ( !user.isPresent() )
         {
-
+            throw new UsernameNotFoundException(username);
         }
+
         User currentUser = user.get();
         currentUser.setPassword(currentUser.getPassword());
         return currentUser;
@@ -60,7 +62,14 @@ public class UserServiceImpl implements UserService, UserDetailsService
         user.setUsername(username);
         user.setPassword(this.passwordEncoder.encode(password));
 
-        this.userRepository.save(user);
+        try
+        {
+            this.userRepository.save(user);
+        }
+        catch ( Exception e )
+        {
+
+        }
 
     }
 
@@ -69,9 +78,11 @@ public class UserServiceImpl implements UserService, UserDetailsService
 
 
     @Override
-    public boolean existsId(final String username)
+    public boolean isUserName(final String username)
     {
-        return this.userRepository.existsById(username);
+        Optional<User> user = this.userRepository.findByUsername(username);
+
+        return user.isPresent();
     }
 
 }

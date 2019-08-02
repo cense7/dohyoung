@@ -1,4 +1,4 @@
-package com.searchBook.service.Impl;
+package com.searchBook.service.Impl.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
