@@ -1,7 +1,6 @@
 package com.searchBook.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
@@ -11,13 +10,14 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.searchBook.domain.User;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+// @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DataJpaTest
 public class UserRepositoryTest
 {
 
@@ -42,9 +42,9 @@ public class UserRepositoryTest
     @Test
     public void findByUsername()
     {
-        String username = "kakaoBank";
+        String username = "1234";
 
-        Optional<User> user = this.userRepository.findById(username);
+        Optional<User> user = this.userRepository.findByUsername(username);
         assertNotNull(user);
     }
 
@@ -56,16 +56,18 @@ public class UserRepositoryTest
     public void userRepositoryTest()
     {
         User user = new User();
-        user.setUsername("bank");
-        user.setPassword("123");
+        user.setUsername("koki");
 
-        this.userRepository.save(user);
+        User saveUser = this.userRepository.save(user);
 
-        List<User> userList = this.userRepository.findAll();
+        assertThat(saveUser).isNotNull();
 
-        User bank = userList.get(0);
-        assertEquals(bank.getUsername(), "bank");
-        assertEquals(bank.getPassword(), "123");
+        Optional<User> existingUser = this.userRepository.findByUsername(saveUser.getUsername());
+        assertThat(existingUser).isNotEmpty();
+
+        Optional<User> emptyUser = this.userRepository.findByUsername("k123");
+        assertThat(emptyUser).isEmpty();
+
     }
 
 
