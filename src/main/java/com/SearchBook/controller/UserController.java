@@ -19,11 +19,11 @@ public class UserController
 
 
 
-    @GetMapping("/login")
+    @GetMapping("/user/login")
     public String login()
     {
 
-        return "login";
+        return "/user/login";
     }
 
 
@@ -43,10 +43,10 @@ public class UserController
     @PostMapping("register")
     public @ResponseBody String registerUser(@RequestParam final String username, @RequestParam final String password)
     {
-        boolean idcheck = this.userService.existsId(username);
+        boolean isCheck = this.userService.isUserName(username);
         String code = "1";
 
-        if ( idcheck == false )
+        if ( isCheck == false )
         {
             this.userService.regist(username, password);
             code = "0";
@@ -64,7 +64,7 @@ public class UserController
     public @ResponseBody String checkId(@RequestParam final String username)
     {
         String str = "";
-        boolean idcheck = this.userService.existsId(username);
+        boolean idcheck = this.userService.isUserName(username);
         if ( idcheck == true )
         { // 이미 존재하는 계정
             str = "NO";
